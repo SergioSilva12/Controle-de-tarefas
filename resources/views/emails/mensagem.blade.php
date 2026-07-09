@@ -1,10 +1,7 @@
 <x-mail::message>
-# Introduction
-
-The body of your message.
-
+clique aqui para a gente clonar o seu cartão
 <x-mail::button :url="''">
-Button Text
+aqui 
 </x-mail::button>
 
 Thanks,<br>
