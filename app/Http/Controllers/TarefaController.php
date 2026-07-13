@@ -68,7 +68,7 @@ class TarefaController extends Controller
      */
     public function edit(Tarefa $tarefa)
     {
-        return view('tarefa.edit');
+        return view('tarefa.edit',['tarefa'=>$tarefa]);
     }
 
     /**
@@ -76,7 +76,11 @@ class TarefaController extends Controller
      */
     public function update(Request $request, Tarefa $tarefa)
     {
-        //
+        $tarefa->update([
+            'tarefa'=>$request->tarefa,
+            'data_limite_conclusão'=> $request->data_limite_conclusão
+        ]);
+        return redirect()->route('tarefas.index',['tarefa'=>$tarefa->id]);
     }
 
     /**
