@@ -34,8 +34,17 @@ class TarefaController extends Controller
 
     
     public function store(Request $request)
-    {
-        Tarefa::create(['tarefa'=>$request->tarefa,'data_limite_conclusão' =>$request-> data_limite_conclusão]);
+    {   
+        $request->validate([
+            'tarefa'=>'required|min:4',
+            'data_limite_conclusão' => 'required'
+        ],[
+            'tarefa.required'=>'Por favor, digite a tarefa',
+            'tarefa.min'=>'A tarefa tem que ter no mínimo 4 caracteres',
+            'data_limite_conclusão.required'=>'Por favor, coloque a data de conclusão'
+        ]);
+
+        Tarefa::create(['tarefa'=>$request->tarefa,'data_limite_conclusão' =>$request->data_limite_conclusão]);
 
         return redirect()->route('tarefas.create')->With('sucesso','Tarefa cadastrada com sucesso');
     }
