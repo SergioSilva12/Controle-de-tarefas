@@ -29,15 +29,15 @@ class TarefaController extends Controller
      */
     public function create()
     {
-        //
+        return view('tarefa.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    
     public function store(Request $request)
     {
-        //
+        Tarefa::create(['tarefa'=>$request->tarefa,'data_limite_conclusão' =>$request-> data_limite_conclusão]);
+
+        return redirect()->route('tarefas.create')->With('sucesso','Tarefa cadastrada com sucesso');
     }
 
     /**

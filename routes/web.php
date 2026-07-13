@@ -9,9 +9,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
-Route::resource('tarefas', TarefaController::class)->middleware('auth');
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Auth::routes(['verify'=> true]);
+
+Route::resource('tarefas', TarefaController::class)->middleware('verified');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('verified');
 
 Route::get('/mensagem-teste', function(){
     // return New MensagemTesteMail();
