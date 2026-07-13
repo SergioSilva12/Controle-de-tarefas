@@ -9,7 +9,7 @@ class Tarefa extends Model
 {
     use HasFactory;
     protected $table = 'tarefas';
-    protected $fillable = ['tarefa','data_limite_conclusão'];
+    protected $fillable = ['user_id','tarefa','data_limite_conclusão','concluido'];
 
 
 }
