@@ -35,13 +35,28 @@
                                         </div>
                                     </tr>
 
-                                    <a href="{{ route('tarefas.create') }}">Crie uma tarefa</a>
+                                    <a href="{{ route('tarefas.create') }}" class="d-inline p-2 bg-primary text-white">Crie uma
+                                        tarefa</a>
                                 @endif
 
 
                             </tbody>
                         </table>
-                        <a href="{{ route('tarefas.create') }}">Crie uma tarefa</a>
+                        <nav aria-label="...">
+                            <ul class="pagination">
+                                <li class="page-item">
+                                    <a class="page-link" href="{{ $tarefas->previousPageUrl() }}">Previus</a>
+                                </li>
+                                @for ($i = 1;$i<=$tarefas->lastPage();$i++)
+                                <li class="page-item {{ $tarefas->currentPage() == $i ? 'active' : '' }}">
+                                    <a class="page-link" href="{{ $tarefas->url($i) }}">{{$i}}</a>
+                                </li>
+                                @endfor
+                                    <a class="page-link" href="{{ $tarefas->nextPageUrl() }}">Next</a>
+                                </li>
+                            </ul>
+                        </nav>
+                        <a href="{{ route('tarefas.create') }}" class="btn btn-primary">Crie uma tarefa</a>
                     </div>
                 </div>
             </div>

@@ -24,9 +24,9 @@
                             @error('data_limite_conclusão')
                                 {{ $message }}
                             @enderror
-                            <button type="submit" class="btn btn-primary">Cadastrar</button>
+                            <button type="submit" class="btn btn-primary ">Cadastrar</button>
                         </form>
-                        <a href="{{ route('tarefas.index') }}">Verificar tarefas</a>
+                        <a href="{{ route('tarefas.index') }}" class="btn btn-primary d-flex justify-content-center" >Verificar tarefas</a>
                         @session('sucesso')
                             <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
                                 <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">

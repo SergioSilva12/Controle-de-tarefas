@@ -16,7 +16,7 @@ class TarefaController extends Controller
     {
         if (auth()->check()) { //verifica se o usuário está logado
             $nome = auth()->user()->name; //recupera o nome do usário
-            $tarefas = Tarefa::where('concluido',false)->get(); //recupera os dados cujo as tarefas não estejam concluidas
+            $tarefas = Tarefa::where('concluido',false)->paginate(1); //recupera os dados cujo as tarefas não estejam concluidas
             $quantidade = $tarefas->count();//conta quantas tarefas tem não conluidas
             return view('tarefa.index', ['tarefas' => $tarefas,'nome'=>$nome,'quantidade'=>$quantidade]);//retorna os valores para a view
         } else {
