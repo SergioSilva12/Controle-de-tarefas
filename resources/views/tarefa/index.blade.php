@@ -14,6 +14,7 @@
                                     <th scope="col">ID</th>
                                     <th scope="col">Tarefa</th>
                                     <th scope="col">Data limite conclusão</th>
+                                    <th scope="col">Editar</th>
 
                                 </tr>
                             </thead>
@@ -25,6 +26,7 @@
                                             <th scope="row">{{$tarefa->id}}</th>
                                             <td>{{$tarefa->tarefa}}</td>
                                             <td>{{ date('d/m/Y', strtotime($tarefa->{'data_limite_conclusão'})) }}</td>
+                                            <td><a href="{{ route('tarefas.edit', $tarefa->id) }}">Editar</a></td>
                                         </tr>
                                     @endforeach
                                 @else
@@ -46,13 +48,18 @@
                             <ul class="pagination">
                                 <li class="page-item">
                                     <a class="page-link" href="{{ $tarefas->previousPageUrl() }}">Previus</a>
+                                    {{-- metodo de voltar a página --}}
                                 </li>
-                                @for ($i = 1;$i<=$tarefas->lastPage();$i++)
-                                <li class="page-item {{ $tarefas->currentPage() == $i ? 'active' : '' }}">
-                                    <a class="page-link" href="{{ $tarefas->url($i) }}">{{$i}}</a>
-                                </li>
+                                @for ($i = 1; $i <= $tarefas->lastPage(); $i++)
+                                    {{-- For para o número de páginas se dinamico, ele verifica com base na última página --}}
+                                    <li class="page-item {{ $tarefas->currentPage() == $i ? 'active' : '' }}">
+                                        {{-- usei o currentPage para se estiver na página do numero $i, usar o 'active' para
+                                        deixar destacado qual página estamos --}}
+                                        <a class="page-link" href="{{ $tarefas->url($i) }}">{{$i}}</a>
+                                    </li>
                                 @endfor
-                                    <a class="page-link" href="{{ $tarefas->nextPageUrl() }}">Next</a>
+                                <a class="page-link" href="{{ $tarefas->nextPageUrl() }}">Next</a>
+                                {{-- o metodo de próxima página --}}
                                 </li>
                             </ul>
                         </nav>
