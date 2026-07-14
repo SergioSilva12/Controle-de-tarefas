@@ -27,9 +27,6 @@ class TarefaController extends Controller
 
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         return view('tarefa.create');
@@ -57,18 +54,14 @@ class TarefaController extends Controller
         return redirect()->route('tarefas.show', $tarefa)->with('sucesso', true);
     }
 
-    /**
-     * Display the specified resource.
-     */
+
     public function show(Tarefa $tarefa)
     {
 
         return view('tarefa.show', ['tarefa' => $tarefa]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+
     public function edit(Tarefa $tarefa)
     {
         $user_id = auth()->user()->id;
@@ -77,13 +70,8 @@ class TarefaController extends Controller
         }
 
         return view('acesso-negado');
-
-
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Tarefa $tarefa)
     {
         $user_id = auth()->user()->id; //verificando se a tarefa afetada é uma tarefa do usuário
@@ -94,16 +82,20 @@ class TarefaController extends Controller
             ]);
             return redirect()->route('tarefas.index', ['tarefa' => $tarefa->id]);
         }
-        
+
         return view('acesso-negado');
 
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Tarefa $tarefa)
     {
-        //
+        if ($tarefa->user_id == auth()->user()->id) {
+            $tarefa->delete();
+            return redirect()->route('tarefas.index')->with('sucesso', true);
+        } else {
+            return view('acesso-negado');
+        }
+
+
     }
 }

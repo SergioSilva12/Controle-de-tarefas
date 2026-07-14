@@ -15,6 +15,7 @@
                                     <th scope="col">Tarefa</th>
                                     <th scope="col">Data limite conclusão</th>
                                     <th scope="col">Editar</th>
+                                    <th scope="col">Excluir</th>
 
                                 </tr>
                             </thead>
@@ -27,6 +28,16 @@
                                             <td>{{$tarefa->tarefa}}</td>
                                             <td>{{ date('d/m/Y', strtotime($tarefa->{'data_limite_conclusão'})) }}</td>
                                             <td><a href="{{ route('tarefas.edit', $tarefa->id) }}">Editar</a></td>
+                                            <th>
+                                                <form action="{{ route('tarefas.destroy', $tarefa->id) }}" method="post"
+                                                    id="form_{{ $tarefa->id }}">
+                                                    @csrf
+                                                    @method('DELETE')
+
+                                                </form>
+                                                <a href="#"
+                                                    onclick="document.getElementById('form_{{ $tarefa->id }}').submit()">Excluir</a>
+                                            </th>
                                         </tr>
                                     @endforeach
                                 @else
@@ -41,6 +52,9 @@
                                         tarefa</a>
                                 @endif
 
+                                @session('sucesso')
+                                    <span>Tarefa deletada com sucesso</span>
+                                @endsession
 
                             </tbody>
                         </table>
