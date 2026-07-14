@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class TarefaController extends Controller
 {
-    public function _construct()
+    public function __construct()
     {
         $this->middleware('auth');
     }
@@ -16,9 +16,11 @@ class TarefaController extends Controller
     {
         if (auth()->check()) { //verifica se o usuário está logado
             $nome = auth()->user()->name; //recupera o nome do usário
-            $tarefas = Tarefa::where('concluido',false)->paginate(5); //recupera os dados cujo as tarefas não estejam concluidas
+            $tarefas = Tarefa::where('concluido', false)
+                ->where('user_id', auth()->id())
+                ->paginate(5); //recupera os dados cujo as tarefas não estejam concluidas para o usuário atual
             $quantidade = $tarefas->count();//conta quantas tarefas tem não conluidas
-            return view('tarefa.index', ['tarefas' => $tarefas,'nome'=>$nome,'quantidade'=>$quantidade]);//retorna os valores para a view
+            return view('tarefa.index', ['tarefas' => $tarefas, 'nome' => $nome, 'quantidade' => $quantidade]);//retorna os valores para a view
         } else {
             return redirect()->route('login');
         }
@@ -46,10 +48,10 @@ class TarefaController extends Controller
         ]);
 
         $tarefa = Tarefa::create([
-            'user_id' => $request->id,
+            'user_id' => auth()->id(),
             'tarefa' => $request->tarefa,
             'data_limite_conclusão' => $request->data_limite_conclusão,
-            'concluido' =>$request->boolean()
+            'concluido' => $request->boolean()
         ]);
 
         return redirect()->route('tarefas.show', $tarefa)->with('sucesso', true);
@@ -60,6 +62,7 @@ class TarefaController extends Controller
      */
     public function show(Tarefa $tarefa)
     {
+
         return view('tarefa.show', ['tarefa' => $tarefa]);
     }
 
@@ -68,7 +71,14 @@ class TarefaController extends Controller
      */
     public function edit(Tarefa $tarefa)
     {
-        return view('tarefa.edit',['tarefa'=>$tarefa]);
+        $user_id = auth()->user()->id;
+        if ($tarefa->user_id == $user_id) { //Validação para o usuário não acessar outras tarefas que não está relacionado ao usuário
+            return view('tarefa.edit', ['tarefa' => $tarefa]);
+        }
+
+        return view('acesso-negado');
+
+
     }
 
     /**
@@ -76,11 +86,17 @@ class TarefaController extends Controller
      */
     public function update(Request $request, Tarefa $tarefa)
     {
-        $tarefa->update([
-            'tarefa'=>$request->tarefa,
-            'data_limite_conclusão'=> $request->data_limite_conclusão
-        ]);
-        return redirect()->route('tarefas.index',['tarefa'=>$tarefa->id]);
+        $user_id = auth()->user()->id; //verificando se a tarefa afetada é uma tarefa do usuário
+        if ($tarefa->id == $user_id) {
+            $tarefa->update([
+                'tarefa' => $request->tarefa,
+                'data_limite_conclusão' => $request->data_limite_conclusão
+            ]);
+            return redirect()->route('tarefas.index', ['tarefa' => $tarefa->id]);
+        }
+        
+        return view('acesso-negado');
+
     }
 
     /**
