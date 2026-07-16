@@ -16,7 +16,7 @@
                                     <th scope="col">Data limite conclusão</th>
                                     <th scope="col">Editar</th>
                                     <th scope="col">Excluir</th>
-
+                                    <th scope="col">Concluir</th>
                                 </tr>
                             </thead>
 
@@ -38,6 +38,15 @@
                                                 <a href="#"
                                                     onclick="document.getElementById('form_{{ $tarefa->id }}').submit()">Excluir</a>
                                             </th>
+                                            <td>
+
+                                                <form action="{{ route('tarefas.concluir', $tarefa) }}" method="post">
+                                                    @csrf
+                                                    @method('PATCH')
+                                                    <button type="submit" >Concluir</button>
+                                                </form>
+                                            </td>
+                                            <td>
                                         </tr>
                                     @endforeach
                                 @else

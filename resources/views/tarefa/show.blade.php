@@ -11,7 +11,8 @@
                         <fieldset disabled>
                             <div class="mb-3">
                                 <label class="form-label">Tarefa</label>
-                                <input type="text" class="form-control" aria-describedby="emailHelp" value="{{ $tarefa->tarefa }}">
+                                <input type="text" class="form-control" aria-describedby="emailHelp"
+                                    value="{{ $tarefa->tarefa }}">
                             </div>
                             @error('tarefa')
                                 {{ $message }}
@@ -23,9 +24,9 @@
                             @error('data_limite_conclusão')
                                 {{ $message }}
                             @enderror
-                            <a href="" class="btn btn-primary"> Voltar</a>
-                        </fieldset>
 
+                        </fieldset>
+                        <a href="{{ route('tarefas.index') }}" class="btn btn-primary"> Voltar</a>
                         @session('sucesso')
                             <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
                                 <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
