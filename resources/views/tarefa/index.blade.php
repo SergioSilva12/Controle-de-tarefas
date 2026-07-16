@@ -14,9 +14,9 @@
                                     <th scope="col">ID</th>
                                     <th scope="col">Tarefa</th>
                                     <th scope="col">Data limite conclusão</th>
-                                    <th scope="col">Editar</th>
-                                    <th scope="col">Excluir</th>
-                                    <th scope="col">Concluir</th>
+                                    <th scope="col" class="centro">Editar</th>
+                                    <th scope="col" class="centro">Excluir</th>
+                                    <th scope="col" class="centro">Concluir</th>
                                 </tr>
                             </thead>
 
@@ -27,7 +27,8 @@
                                             <th scope="row">{{$tarefa->id}}</th>
                                             <td>{{$tarefa->tarefa}}</td>
                                             <td>{{ date('d/m/Y', strtotime($tarefa->{'data_limite_conclusão'})) }}</td>
-                                            <td><a href="{{ route('tarefas.edit', $tarefa->id) }}">Editar</a></td>
+                                            <td><a href="{{ route('tarefas.edit', $tarefa->id) }}" class="links"><img
+                                                        src="{{ asset('img/editar.svg') }}" alt=""></a></td>
                                             <th>
                                                 <form action="{{ route('tarefas.destroy', $tarefa->id) }}" method="post"
                                                     id="form_{{ $tarefa->id }}">
@@ -35,16 +36,19 @@
                                                     @method('DELETE')
 
                                                 </form>
-                                                <a href="#"
-                                                    onclick="document.getElementById('form_{{ $tarefa->id }}').submit()">Excluir</a>
+                                                <a href="#" onclick="document.getElementById('form_{{ $tarefa->id }}').submit()"
+                                                    class="links"><img src="{{ asset('img/excluir.svg') }}" alt=""></a>
                                             </th>
                                             <td>
 
-                                                <form action="{{ route('tarefas.concluir', $tarefa) }}" method="post">
+                                                <form action="{{ route('tarefas.concluir', $tarefa) }}" method="post"
+                                                    id="form__{{ $tarefa->id }}">
                                                     @csrf
                                                     @method('PATCH')
-                                                    <button type="submit" >Concluir</button>
+
                                                 </form>
+                                                <a href="#" onclick="document.getElementById('form__{{ $tarefa->id }}').submit()"
+                                                    class="links"><img src="{{ asset('img/concluir.svg') }}" alt=""></a>
                                             </td>
                                             <td>
                                         </tr>
@@ -57,8 +61,6 @@
                                         </div>
                                     </tr>
 
-                                    <a href="{{ route('tarefas.create') }}" class="d-inline p-2 bg-primary text-white">Crie uma
-                                        tarefa</a>
                                 @endif
 
                                 @session('sucesso')

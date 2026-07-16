@@ -7,3 +7,25 @@
 // Bootstrap
 @import 'bootstrap/scss/bootstrap';
 
+.btn-primary {
+    transition: 0.3s ease;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(43, 42, 42, 0.2);
+}
+
+.links{
+    text-decoration: none;
+    border: none;
+    font-size: 15px;
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.centro{
+    text-align: center;
+}
