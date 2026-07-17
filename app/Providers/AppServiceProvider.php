@@ -20,7 +20,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        if ($this->app->environment('production')) {
+        // Força o carregamento de CSS/JS com HTTPS em produção
+        if (env('APP_ENV') === 'production') {
             URL::forceScheme('https');
         }
     }
