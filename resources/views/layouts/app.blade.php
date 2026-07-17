@@ -10,6 +10,9 @@
 
     <title>FluxoTarefas</title>
 
+    <link rel="icon" type="image/svg+xml" href="{{ asset('img/favicon.svg') }}">
+    <link rel="shortcut icon" href="{{ asset('img/favicon.svg') }}">
+
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
