@@ -14,9 +14,9 @@
                                     <th scope="col">ID</th>
                                     <th scope="col">Tarefa</th>
                                     <th scope="col">Data limite</th>
-                                    <th scope="col" class="centro">Editar</th>
-                                    <th scope="col" class="centro">Excluir</th>
-                                    <th scope="col" class="centro">Concluir</th>
+                                    <th scope="col" class="centro-tarefas">Editar</th>
+                                    <th scope="col" class="centro-tarefas">Excluir</th>
+                                    <th scope="col" class="centro-tarefas">Concluir</th>
                                 </tr>
                             </thead>
 

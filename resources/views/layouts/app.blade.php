@@ -18,8 +18,8 @@
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
 
-<body>
-    <div id="app">
+<body class="d-flex flex-column min-vh-100">
+    <div id="app" class="d-flex flex-column flex-grow-1 w-100">
         <nav class="navbar navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
@@ -60,12 +60,12 @@
             </div>
         </nav>
 
-        <main class="py-4">
+        <main class="py-4 flex-grow-1">
             @yield('content')
         </main>
 
-        <footer>
-            
+        <footer class="bg-light text-center py-3 mt-auto border-top">
+            <small class="text-muted">© 2026 FluxoTarefas — feito para quem tem prazo pra cumprir.</small>
         </footer>
     </div>
 </body>
