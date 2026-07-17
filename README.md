@@ -1,58 +1,132 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+**AppControleTarefas**
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Gerenciador simples de tarefas desenvolvido com Laravel. Este projeto serve como base para controlar tarefas, usuários e notificações por e-mail.
 
-## About Laravel
+**Tecnologias:** PHP, Laravel, Composer, MySQL (ou outro SGBD compatível), Node.js, Vite
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+**Status:** Em desenvolvimento
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+**Sumário**
+- **Descrição**: visão geral do projeto
+- **Requisitos**: dependências e versões mínimas
+- **Instalação**: passos para rodar localmente
+- **Uso**: comandos principais e exemplos
+- **Testes**: como executar a suíte de testes
+- **Deploy**: notas de implantação
+- **Contribuição**: como contribuir
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+**Descrição**
+AppControleTarefas é um sistema de gerenciamento de tarefas com autenticação, relacionamento entre tarefas e usuários, envio de e-mails (notificações), e operações CRUD para tarefas.
 
-## Learning Laravel
+**Principais funcionalidades**
+- Cadastro e autenticação de usuários
+- Criação, edição e exclusão de tarefas
+- Associação de tarefas a usuários
+- Notificações por e-mail (ex.: redefinição de senha, nova tarefa)
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+**Requisitos**
+- PHP >= 8.1
+- Composer
+- Node.js >= 16 e npm/yarn
+- MySQL/MariaDB ou outro SGBD compatível
+- Extensões PHP comuns: mbstring, bcmath, openssl, pdo
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+**Instalação (local)**
+1. Clone o repositório:
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+	```bash
+	git clone https://seu-repositorio.git nome-do-projeto
+	cd nome-do-projeto
+	```
 
-## Agentic Development
+2. Instale dependências PHP e Node:
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+	```bash
+	composer install
+	npm install
+	```
+
+3. Copie o arquivo de ambiente e gere a chave da aplicação:
+
+	```bash
+	cp .env.example .env
+	php artisan key:generate
+	```
+
+4. Configure as credenciais do banco de dados no arquivo `.env` e execute migrations:
+
+	```bash
+	php artisan migrate --seed
+	```
+
+5. Compile os assets (modo desenvolvimento):
+
+	```bash
+	npm run dev
+	```
+
+6. Inicie o servidor local:
+
+	```bash
+	php artisan serve
+	```
+
+O sistema ficará disponível por padrão em `http://127.0.0.1:8000`.
+
+**Variáveis de ambiente importantes**
+- `DB_*`: configuração do banco de dados
+- `MAIL_*`: configuração do servidor SMTP para envio de e-mails
+- `APP_ENV`, `APP_DEBUG`, `APP_URL`
+
+**Uso — comandos úteis**
+- Rodar testes:
+
+  ```bash
+  ./vendor/bin/phpunit
+  ```
+
+- Rodar migrations:
+
+  ```bash
+  php artisan migrate
+  ```
+
+- Criar usuário via tinker:
+
+  ```bash
+  php artisan tinker
+  \App\Models\User::factory()->create(['email' => 'dev@example.com']);
+  ```
+
+**Estrutura principal**
+- `app/Models`: modelos de domínio (`Tarefa`, `User`)
+- `app/Http/Controllers`: controladores da aplicação
+- `database/migrations`: migrations do banco
+- `resources/views`: views Blade
+- `routes/web.php`: rotas web
+
+**Testes**
+Execute a suíte de testes com:
 
 ```bash
-composer require laravel/boost --dev
-
-php artisan boost:install
+./vendor/bin/phpunit
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+Adicione testes em `tests/Feature` e `tests/Unit` conforme necessário.
 
-## Contributing
+**Deploy**
+- Configure o servidor com PHP-FPM + Nginx/Apache
+- Defina as variáveis de ambiente em produção
+- Execute `composer install --no-dev --optimize-autoloader` e `php artisan migrate --force`
+- Rode `npm run build` para gerar assets otimizados
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+**Contribuição**
+- Fork e PR com pequenas mudanças e descrições claras
+- Siga PSR-12 e execute os testes antes de abrir PR
 
-## Code of Conduct
+**Licença**
+Projeto licenciado sob MIT — veja o arquivo LICENSE para detalhes.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+**Contato**
+- Para dúvidas ou suporte, abra uma issue neste repositório.
 
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
