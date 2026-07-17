@@ -13,7 +13,7 @@
                                 <tr>
                                     <th scope="col">ID</th>
                                     <th scope="col">Tarefa</th>
-                                    <th scope="col">Data limite conclusão</th>
+                                    <th scope="col">Data limite</th>
                                     <th scope="col" class="centro">Editar</th>
                                     <th scope="col" class="centro">Excluir</th>
                                     <th scope="col" class="centro">Concluir</th>
@@ -63,16 +63,14 @@
 
                                 @endif
 
-                                @session('sucesso')
-                                    <span>Tarefa deletada com sucesso</span>
-                                @endsession
+
 
                             </tbody>
                         </table>
                         <nav aria-label="...">
                             <ul class="pagination">
                                 <li class="page-item">
-                                    <a class="page-link" href="{{ $tarefas->previousPageUrl() }}">Previus</a>
+                                    <a class="page-link" href="{{ $tarefas->previousPageUrl() }}">Anterior</a>
                                     {{-- metodo de voltar a página --}}
                                 </li>
                                 @for ($i = 1; $i <= $tarefas->lastPage(); $i++)
@@ -83,12 +81,18 @@
                                         <a class="page-link" href="{{ $tarefas->url($i) }}">{{$i}}</a>
                                     </li>
                                 @endfor
-                                <a class="page-link" href="{{ $tarefas->nextPageUrl() }}">Next</a>
+                                <a class="page-link" href="{{ $tarefas->nextPageUrl() }}">Próximo</a>
                                 {{-- o metodo de próxima página --}}
                                 </li>
                             </ul>
                         </nav>
                         <a href="{{ route('tarefas.create') }}" class="btn btn-primary">Crie uma tarefa</a>
+                        @if(session('concluido'))
+                        <span class="alerta-mensagem">Tarefa concluída com sucesso</span>
+                        @endif
+                        @if(session('sucesso'))
+                            <span class="alerta-mensagem">Tarefa deletada com sucesso</span>
+                        @endif
                     </div>
                 </div>
             </div>

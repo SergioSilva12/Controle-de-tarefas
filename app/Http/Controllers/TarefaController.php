@@ -102,7 +102,7 @@ class TarefaController extends Controller
         if($tarefa->user_id == auth()->user()->id){
             $tarefa->concluido = true;
             $tarefa->save();
-            return redirect()->route('tarefas.index')->with('sucesso',true);
+            return redirect()->route('tarefas.index')->with('concluido',true);
         }
         else{
             return view('acesso-negado');

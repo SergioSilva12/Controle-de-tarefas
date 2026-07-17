@@ -6,7 +6,7 @@ use App\Http\Controllers\TarefaController;
 use App\Http\Controllers\Mail\MensagemTesteMailController;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('bem-vindo');
 });
 
 Auth::routes(['verify'=> true]);

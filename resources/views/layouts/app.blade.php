@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>FluxoTarefas</title>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
@@ -20,64 +20,53 @@
 
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav class="navbar navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
+                    <span style="font-weight: 700; font-size: 20px;">FluxoTarefas</span>
                 </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav me-auto">
-
-                    </ul>
-
+                <div class="d-flex align-items-center">
                     <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ms-auto">
+                    <ul class="navbar-nav ms-auto align-items-center">
                         <!-- Authentication Links -->
-                        @guest
-                            @if (Route::has('login'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                        <div class="nav-bar-login-registrar">
+                            @guest
+                                @if (Route::has('login'))
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('login') }}">Entrar</a>
+                                    </li>
+                                @endif
+
+                                @if (Route::has('register'))
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('register') }}">Registrar</a>
+                                    </li>
+                                @endif
+                            @else
+                        </div>
+                                <li class="nav-item d-flex align-items-center gap-2">
+                                    <span class="navbar-text me-2">{{ Auth::user()->name }}</span>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-flex m-0">
+                                        @csrf
+                                        <button type="submit" class="btn btn-link nav-link p-0">
+                                            <img src="{{ asset('img/sair.svg') }}">
+                                        </button>
+                                    </form>
                                 </li>
-                            @endif
-
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
-                            @endif
-                        @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
-                                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }}
-                                </a>
-
-                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-
-                                </div>
-                            </li>
-                        @endguest
+                            @endguest
                     </ul>
                 </div>
             </div>
-            <form id="logout-form" action="{{ route('logout') }}" method="POST">
-                @csrf
-                <button type="submit" class="dropdown-item">
-                    {{ __('Logout') }}
-                </button>
-            </form>
         </nav>
 
         <main class="py-4">
             @yield('content')
         </main>
+
+        <footer>
+            
+        </footer>
     </div>
 </body>
 
