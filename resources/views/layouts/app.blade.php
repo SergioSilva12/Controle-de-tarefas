@@ -8,10 +8,10 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>FluxoTarefas</title>
+    <title>{{ config('app.name', 'FluxoTarefas') }}</title>
 
-    <link rel="icon" type="image/svg+xml" href="{{ asset('img/favicon.svg') }}">
-    <link rel="shortcut icon" href="{{ asset('img/favicon.svg') }}">
+    <link rel="icon" href="{{ asset('favicon.ico') }}">
+    <link rel="shortcut icon" href="{{ asset('favicon.ico') }}">
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
